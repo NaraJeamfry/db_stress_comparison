@@ -1,0 +1,21 @@
+services:
+  load_live:
+    build:
+      context: ../setup
+    command: "dgraph_live"
+    environment:
+      DGRAPH_URL: 'dgraph:9080'
+      DGRAPH_ZERO_URL: 'dgraph:5080'
+    volumes:
+      - ../setup/artifacts:/output
+
+  dgraph:
+    image: dgraph/standalone:latest
+    ports:
+      - "48080:8080"
+      - "9080"
+      - "6080"
+      - "5080"
+
+volumes:
+  db_stress_dgraph_data: {}
