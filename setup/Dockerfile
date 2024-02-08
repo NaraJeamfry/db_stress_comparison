@@ -10,7 +10,7 @@ ENV DGRAPH_URL="localhost:39080"
 COPY Pipfile Pipfile.lock /app/
 RUN pip install pipenv && \
     apt-get update && \
-    apt-get install -y --no-install-recommends g++ && \
+    apt-get install -y --no-install-recommends g++ postgresql-client && \
     pipenv install --system --deploy && \
     curl https://get.dgraph.io -sSf | bash && \
     apt-get remove -y g++ && \
@@ -25,6 +25,12 @@ COPY create_json_data.py /app/
 COPY dbs/* /app/dbs/
 
 ENV DGRAPH_ZERO_URL="localhost:5080"
+
+ENV POSTGRES_URL='localhost'
+ENV POSTGRES_USER='test'
+ENV POSTGRES_PASSWORD='test'
+ENV POSTGRES_DB='test'
+ENV POSTGRES_PORT=5432
 
 ENV PYTHONPATH=/app:$PYTHONPATH
 ENTRYPOINT ["/app/entrypoint.sh"]

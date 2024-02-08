@@ -16,6 +16,3 @@ services:
       - "9080"
       - "6080"
       - "5080"
-
-volumes:
-  db_stress_dgraph_data: {}

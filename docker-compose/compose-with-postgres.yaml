@@ -1,0 +1,22 @@
+services:
+  load:
+    build:
+      context: ../setup
+    command: "postgres"
+    environment:
+      POSTGRES_URL: 'postgres'
+      POSTGRES_PORT: '5432'
+      POSTGRES_USER: 'test'
+      POSTGRES_PASSWORD: 'test'
+      POSTGRES_DB: 'test'
+    volumes:
+      - ../setup/artifacts:/output
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: 'test'
+      POSTGRES_PASSWORD: 'test'
+      POSTGRES_DB: 'test'
+    ports:
+      - "45432:5432"

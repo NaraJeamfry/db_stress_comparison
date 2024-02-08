@@ -17,7 +17,7 @@ def create_tag():
 def create_picture(tags, users=None, user=None):
     return {
         "title": faker.sentence(), "uuid": faker.uuid4(),
-        "isAbout": faker.random_elements(elements=tags, unique=True, length=faker.pyint(min_value=1, max_value=5)),
+        "isAbout": faker.random_elements(elements=tags, unique=True, length=faker.pyint(min_value=3, max_value=25)),
         "uploader": user['uuid'] if user else faker.random_element(elements=users)
     }
 
@@ -30,15 +30,15 @@ with open(os.path.join('/output', 'output.json'), 'w') as dest_file:
     users = []
     pictures = []
 
-    for i in range(100):
+    for i in range(1000):
         tags.append(create_tag())
     tag_uuids = {tag['uuid'] for tag in tags}
     tag_uuids_list = sorted(tag_uuids)
 
-    for _ in range(10000):
+    for _ in range(100000):
         user = create_user()
         users.append(user)
-        for _ in range(faker.pyint(1, 5)):
+        for _ in range(faker.pyint(1, 6)):
             pictures.append(create_picture(tag_uuids_list, user=user))
     user_uuids = {user['uuid'] for user in users}
     picture_uuids = {picture['uuid'] for picture in pictures}
